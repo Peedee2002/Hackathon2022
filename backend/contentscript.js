@@ -1,9 +1,11 @@
 import NaturalLanguageUnderstandingV1 from 'ibm-watson/natural-language-understanding/v1';
 import { IamAuthenticator } from 'ibm-watson/auth';
+import express from 'express';
 // document.querySelectorAll(`div[data-testid^="solid-message-bubble"]`)
 // https://developer.ibm.com/tutorials/how-to-create-a-browser-extension-that-leverages-ibm-watson-cognitive-api/
 // this is from the official IBM tutorial, but HEAVILY modified, since that code was hot garbage
 
+const app = express();
 
 async function callToneAnalyzer(word) {
   const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
@@ -15,7 +17,7 @@ async function callToneAnalyzer(word) {
   });
 
   const analyzeParams = {
-    'text': String(word.selectionText).replace(/%20/g, ""),
+    'text': String(word).replace(/%20/g, ""),
     'features': {
       'emotion': {
       }
@@ -24,7 +26,7 @@ async function callToneAnalyzer(word) {
 
   const analysisResults = await naturalLanguageUnderstanding.analyze(analyzeParams);
 
-  alert(Object.entries(analysisResults.result.emotion.document).reduce((rest, [tone_name, score]) => `${rest}${tone_name} = ${score * 100}%\n`, ""));
+  return Object.entries(analysisResults.result.emotion.document).reduce((rest, [tone_name, score]) => `${rest}${tone_name} = ${score * 100}%\n`, "");
 };
 
 
@@ -59,3 +61,11 @@ function sendEmail() {
     };
   }
 }
+
+app.get('/callAnalyser', async (req, res) => {
+  res.send(await callToneAnalyzer(req.params.analyse))
+})
+
+app.listen(3000, () => {
+  console.log("yeet on 3000")
+})

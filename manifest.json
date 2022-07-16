@@ -19,6 +19,8 @@
         "all_frames": true,
         "js": ["contentscript.js"]
     }],
-    "web_accessible_resources": ["contentscript.js"],
-    "permissions": ["contextMenus", "*://*/*"]
+    "web_accessible_resources": [
+        "contentscript.js"
+    ],
+    "permissions": ["<all_urls>", "contextMenus", "tabs", "activeTab"]
 }

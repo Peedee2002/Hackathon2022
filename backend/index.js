@@ -7,7 +7,7 @@ import express from 'express';
 
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
 
 async function callToneAnalyzer(word) {
   const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
@@ -15,25 +15,27 @@ async function callToneAnalyzer(word) {
     authenticator: new IamAuthenticator({
       apikey: '_faoS8mAvH-l3VhkgBFElVvtxJRTbsuRUfrSbWGec549',
     }),
-    serviceUrl: 'https://api.au-syd.natural-language-understanding.watson.cloud.ibm.com/instances/6f0caca6-4a6b-4260-8119-d2ea0633b9cb',
+    serviceUrl:
+      'https://api.au-syd.natural-language-understanding.watson.cloud.ibm.com/instances/6f0caca6-4a6b-4260-8119-d2ea0633b9cb',
   });
 
   const analyzeParams = {
-    'text': String(word).replace(/%20/g, ""),
-    'features': {
-      'emotion': {
-      }
-    }
+    text: String(word).replace(/%20/g, ''),
+    features: {
+      emotion: {},
+    },
   };
 
-  const analysisResults = await naturalLanguageUnderstanding.analyze(analyzeParams);
-  return analysisResults.result.emotion.document.emotion
-};
-
+  const analysisResults = await naturalLanguageUnderstanding.analyze(
+    analyzeParams
+  );
+  console.log(analysisResults.result.emotion.document.emotion);
+  return analysisResults.result.emotion.document.emotion;
+}
 
 function sendEmail() {
   var xmlRequest = new XMLHttpRequest();
-  var target_email = "raghav.lall@hotmail.com";
+  var target_email = 'raghav.lall@hotmail.com';
   if (window.XMLHttpRequest) {
     xmlRequest.open(
       'POST',
@@ -49,9 +51,13 @@ function sendEmail() {
 }
 
 app.post('/callAnalyser', async (req, res) => {
-  res.send(await callToneAnalyzer(req.body.analyse))
-})
+  try {
+    res.send(await callToneAnalyzer(req.body.analyse));
+  } catch {
+    console.log('error');
+  }
+});
 
 app.listen(8000, () => {
-  console.log("yeet on 8000")
-})
+  console.log('yeet on 8000');
+});

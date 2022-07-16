@@ -13,7 +13,7 @@ async function callTextAnalyzer() {
       Accept: 'application/json',
     },
     body: JSON.stringify({
-      "analyse": "hi how are you i am good thank you indeed good thanks",
+      "analyse": text,
     }),
   });
 
@@ -21,3 +21,10 @@ async function callTextAnalyzer() {
   console.log(JSON.stringify(obj));
   alert(JSON.stringify(obj));
 }
+
+let list = [];
+document.querySelectorAll(`div[data-testid^="solid-message-bubble"]`).forEach(
+    (i) => list.push(i)
+);
+
+const text = list.map((val) => val.children[0].children[0]);

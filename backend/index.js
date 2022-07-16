@@ -1,6 +1,7 @@
 import NaturalLanguageUnderstandingV1 from 'ibm-watson/natural-language-understanding/v1';
 import { IamAuthenticator } from 'ibm-watson/auth';
 import express from 'express';
+import 'dotenv/config';
 // document.querySelectorAll(`div[data-testid^="solid-message-bubble"]`)
 // https://developer.ibm.com/tutorials/how-to-create-a-browser-extension-that-leverages-ibm-watson-cognitive-api/
 // this is from the official IBM tutorial, but HEAVILY modified, since that code was hot garbage
@@ -13,7 +14,7 @@ async function callToneAnalyzer(word) {
   const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
     version: '2022-04-07',
     authenticator: new IamAuthenticator({
-      apikey: '_faoS8mAvH-l3VhkgBFElVvtxJRTbsuRUfrSbWGec549',
+      apikey: process.env.API_KEY,
     }),
     serviceUrl:
       'https://api.au-syd.natural-language-understanding.watson.cloud.ibm.com/instances/6f0caca6-4a6b-4260-8119-d2ea0633b9cb',
@@ -57,6 +58,12 @@ app.post('/callAnalyser', async (req, res) => {
     console.log('error');
   }
 });
+
+app.post('/howManyEvil', async (req, res) => {
+  const values = await Promise.allSettled(req.body.analyse.map(callToneAnalyzer));
+  const fullfilled = values.filter((val) => val.status == "fulfilled");
+  res.send({"evil": fullfilled.filter((val) => val.value.anger > 0.75).length})
+})
 
 app.listen(8000, () => {
   console.log('yeet on 8000');

@@ -24,7 +24,7 @@ function getAPIKeyV2(apikey) {
 
 }
 
-var callToneAnalyzer = function (word) {
+function callToneAnalyzer(word) {
   var textContent = String(word.selectionText);
 
   var xhr = new XMLHttpRequest();
@@ -39,44 +39,34 @@ var callToneAnalyzer = function (word) {
     xhr.send();
 
     xhr.onreadystatechange = function () {
-      if (xhr.readyState == 4 && xhr.status == 200) {
-        var result1 = xhr.responseText;
+      if (!xhr.readyState == 4 || !xhr.status == 200) return
 
-        var obj = JSON.parse(result1);
+      var obj = JSON.parse(xhr.responseText);
 
-        var angerTone = obj.document_tone.tone_categories[0].tones[0].tone_name;
-        var angerScore = obj.document_tone.tone_categories[0].tones[0].score;
+      var angerTone = obj.document_tone.tone_categories[0].tones[0].tone_name;
+      var angerScore = obj.document_tone.tone_categories[0].tones[0].score;
 
-        var disgustTone = obj.document_tone.tone_categories[0].tones[1].tone_name;
-        var disgustScore = obj.document_tone.tone_categories[0].tones[1].score;
+      var disgustTone = obj.document_tone.tone_categories[0].tones[1].tone_name;
+      var disgustScore = obj.document_tone.tone_categories[0].tones[1].score;
 
-        var fearTone = obj.document_tone.tone_categories[0].tones[2].tone_name;
-        var fearScore = obj.document_tone.tone_categories[0].tones[2].score;
+      var fearTone = obj.document_tone.tone_categories[0].tones[2].tone_name;
+      var fearScore = obj.document_tone.tone_categories[0].tones[2].score;
 
-        var joyTone = obj.document_tone.tone_categories[0].tones[3].tone_name;
-        var joyScore = obj.document_tone.tone_categories[0].tones[3].score;
+      var joyTone = obj.document_tone.tone_categories[0].tones[3].tone_name;
+      var joyScore = obj.document_tone.tone_categories[0].tones[3].score;
 
-        var sadnessTone = obj.document_tone.tone_categories[0].tones[4].tone_name;
-        var sadnessScore = obj.document_tone.tone_categories[0].tones[4].score;
+      var sadnessTone = obj.document_tone.tone_categories[0].tones[4].tone_name;
+      var sadnessScore = obj.document_tone.tone_categories[0].tones[4].score;
 
-        alert(angerTone + "=  " + angerScore * 100 + " %" + ";" + "\n" + disgustTone + "= " + disgustScore * 100 + " %" + "\n" + fearTone + "= " + fearScore * 100 + " %" + "\n" + joyTone + "= " + joyScore * 100 + " %" + "\n" + sadnessTone + "= " + sadnessScore * 100 + " %");
-
-      }
+      alert(angerTone + "=  " + angerScore * 100 + " %" + ";" + "\n" + disgustTone + "= " + disgustScore * 100 + " %" + "\n" + fearTone + "= " + fearScore * 100 + " %" + "\n" + joyTone + "= " + joyScore * 100 + " %" + "\n" + sadnessTone + "= " + sadnessScore * 100 + " %");
     }
   })
 
 };
 
 chrome.contextMenus.create({
-  title: "IBM Watson API V1",
+  title: "Tone analysis",
   id: 'parent',
-  contexts: ["selection"]
-});
-
-chrome.contextMenus.create({
-  title: "Tone Analyzer",
-  parentId: "parent",
-  id: 'child6',
   contexts: ["selection"],
   onclick: callToneAnalyzer
 });

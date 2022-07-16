@@ -1,72 +1,42 @@
-const toneanalyzerapikey = "bLF21kTqxCgtS4mYrNeEQETUUtdbGbiuEiu36U0JUwva";
-
-// this is from the official IBM tutorial
-function getAPIKeyV2(apikey) {
-  return new Promise(function (resolve, reject) {
-    var xmlRequest = new XMLHttpRequest();
-    if (!window.XMLHttpRequest) reject("failed to find access token")
-    xmlRequest.open("POST", "https://iam.bluemix.net/identity/token")
-    xmlRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xmlRequest.setRequestHeader("Accept", "application/json")
-
-    xmlRequest.send(encodeURI("grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=" + apikey));
-
-    xmlRequest.onreadystatechange = function () {
-
-      if (xmlRequest.readyState == 4 && xmlRequest.status == 200) {
-
-        var parsedData = JSON.parse(xmlRequest.responseText)
-
-        resolve(parsedData.access_token);
-      }
-    }
-  });
-
+const toneanalyzerapikey = "_faoS8mAvH-l3VhkgBFElVvtxJRTbsuRUfrSbWGec549";
+// document.querySelectorAll(`div[data-testid^="solid-message-bubble"]`)
+// https://developer.ibm.com/tutorials/how-to-create-a-browser-extension-that-leverages-ibm-watson-cognitive-api/
+// this is from the official IBM tutorial, but HEAVILY modified, since that code was hot garbage
+async function getAPIKeyV2(apikey) {
+  const res = await fetch("https://iam.bluemix.net/identity/token", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Accept": "application/json"
+    },
+    body: encodeURI("grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=" + apikey)
+  })
+  return (await res.json()).access_token;
 }
 
-function callToneAnalyzer(word) {
-  var textContent = String(word.selectionText);
-
-  var xhr = new XMLHttpRequest();
-  var toneanalyzertoken = getAPIKeyV2(toneanalyzerapikey);
-  toneanalyzertoken.then(function (result) {
-    var inputContent = textContent.replace(/%20/g, "");
-    xhr.open("GET", "https://api.us-south.tone-analyzer.watson.cloud.ibm.com/api/v3/tone?sentences=true&version=2016-05-19&text=" + inputContent)
-    xhr.setRequestHeader("Authorization", "Bearer " + result);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Accept", "application/json")
-
-    xhr.send();
-
-    xhr.onreadystatechange = function () {
-      if (!xhr.readyState == 4 || !xhr.status == 200) return
-
-      var obj = JSON.parse(xhr.responseText);
-
-      var angerTone = obj.document_tone.tone_categories[0].tones[0].tone_name;
-      var angerScore = obj.document_tone.tone_categories[0].tones[0].score;
-
-      var disgustTone = obj.document_tone.tone_categories[0].tones[1].tone_name;
-      var disgustScore = obj.document_tone.tone_categories[0].tones[1].score;
-
-      var fearTone = obj.document_tone.tone_categories[0].tones[2].tone_name;
-      var fearScore = obj.document_tone.tone_categories[0].tones[2].score;
-
-      var joyTone = obj.document_tone.tone_categories[0].tones[3].tone_name;
-      var joyScore = obj.document_tone.tone_categories[0].tones[3].score;
-
-      var sadnessTone = obj.document_tone.tone_categories[0].tones[4].tone_name;
-      var sadnessScore = obj.document_tone.tone_categories[0].tones[4].score;
-
-      alert(angerTone + "=  " + angerScore * 100 + " %" + ";" + "\n" + disgustTone + "= " + disgustScore * 100 + " %" + "\n" + fearTone + "= " + fearScore * 100 + " %" + "\n" + joyTone + "= " + joyScore * 100 + " %" + "\n" + sadnessTone + "= " + sadnessScore * 100 + " %");
+async function callToneAnalyzer(word) {
+  var token = await getAPIKeyV2(toneanalyzerapikey);
+  console.error(token);
+  var inputContent = String(word.selectionText).replace(/%20/g, "");
+  let res = await fetch("https://api.us-south.tone-analyzer.watson.cloud.ibm.com/api/v3/tone?sentences=true&version=2016-05-19&text=" + inputContent, {
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Accept": "application/json"
     }
   })
 
+  var obj = await res.json();
+  console.error(JSON.stringify(obj));
+  alert(obj.document_tone.tone_categories[0].tones.reduce((rest, {tone_name, score}) => `${rest}${tone_name} = ${score * 100}%\n`, ""));
 };
+
+console.log(chrome);
 
 chrome.contextMenus.create({
   title: "Tone analysis",
   id: 'parent',
   contexts: ["selection"],
-  onclick: callToneAnalyzer
+  onclick: (word) => callToneAnalyzer(word)
 });

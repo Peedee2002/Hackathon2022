@@ -13,13 +13,9 @@ const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
 });
 
 const analyzeParams = {
-    'html': '<html><head><title>Fruits</title></head><body><h1>Apples and Oranges</h1><p>I love apples! I don\'t like oranges.</p></body></html>',
+    'text': 'Apples and Oranges I love apples! I dont like oranges.',
     'features': {
       'emotion': {
-        'targets': [
-          'apples',
-          'oranges'
-        ]
       }
     }
   };

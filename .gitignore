@@ -1,2 +1,3 @@
-**/.DSStore
+**/.DStore
 .env
+node_modules

@@ -6,7 +6,7 @@
     "icons": {
         "128": "ibmwatson.png"
     },
-    "author": "Shankar Venkatachalam1/India/IBM",
+    "author": "Hackermen",
     "background": {
         "scripts": ["contentscript.js"]
     },

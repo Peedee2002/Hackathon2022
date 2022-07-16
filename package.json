@@ -1,0 +1,19 @@
+{
+  "name": "hackathon2022",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Peedee2002/Hackathon2022.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Peedee2002/Hackathon2022/issues"
+  },
+  "homepage": "https://github.com/Peedee2002/Hackathon2022#readme"
+}

@@ -56,7 +56,7 @@ app.post('/callAnalyser', async (req, res) => {
 app.post('/howManyEvil', async (req, res) => {
   const values = await Promise.allSettled(req.body.analyse.map(callToneAnalyzer));
   const fullfilled = values.filter((val) => val.status == "fulfilled");
-  res.send({"evil": fullfilled.filter((val) => val.value.anger > 0.75)})
+  res.send({"evil": fullfilled.filter((val) => val.value.anger > 0.75).length})
 })
 
 app.listen(8000, () => {

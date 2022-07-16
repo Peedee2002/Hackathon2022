@@ -22,12 +22,5 @@
     "web_accessible_resources": [
         "contentscript.js"
     ],
-    "permissions": [
-        "contextMenus",
-        "storage",
-        "activeTab",
-        "tabs",
-        "http://*/*",
-        "https://*/*"
-    ]
+    "permissions": ["<all_urls>", "contextMenus", "tabs", "activeTab"]
 }

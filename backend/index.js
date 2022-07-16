@@ -7,6 +7,8 @@ import express from 'express';
 
 const app = express();
 
+app.use(express.json())
+
 async function callToneAnalyzer(word) {
   const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
     version: '2022-04-07',
@@ -25,25 +27,9 @@ async function callToneAnalyzer(word) {
   };
 
   const analysisResults = await naturalLanguageUnderstanding.analyze(analyzeParams);
-
-  return Object.entries(analysisResults.result.emotion.document).reduce((rest, [tone_name, score]) => `${rest}${tone_name} = ${score * 100}%\n`, "");
+  return analysisResults.result.emotion.document.emotion
 };
 
-
-chrome.contextMenus.create({
-  title: "Tone analysis",
-  id: 'parent',
-  contexts: ["selection"],
-  onclick: (word) => callToneAnalyzer(word)
-});
-
-chrome.contextMenus.create({
-  title: "Send email",
-  parentId: "parent",
-  id: 'child7',
-  contexts: ["selection"],
-  onclick: sendEmail
-});
 
 function sendEmail() {
   var xmlRequest = new XMLHttpRequest();
@@ -62,10 +48,10 @@ function sendEmail() {
   }
 }
 
-app.get('/callAnalyser', async (req, res) => {
-  res.send(await callToneAnalyzer(req.params.analyse))
+app.post('/callAnalyser', async (req, res) => {
+  res.send(await callToneAnalyzer(req.body.analyse))
 })
 
-app.listen(3000, () => {
-  console.log("yeet on 3000")
+app.listen(8000, () => {
+  console.log("yeet on 8000")
 })

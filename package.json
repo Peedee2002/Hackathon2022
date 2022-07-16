@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "ibm-watson": "^7.0.0"
+  }
+}

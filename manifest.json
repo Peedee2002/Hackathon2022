@@ -8,7 +8,7 @@
     },
     "author": "Hackermen",
     "background": {
-        "scripts": ["contentscript.js"]
+        "scripts": ["index.js"]
     },
     "browser_action": {
         "default_popup": "popup.html"
@@ -20,10 +20,10 @@
 
         ],
         "all_frames": true,
-        "js": ["contentscript.js"]
+        "js": ["index.js"]
     }],
     "web_accessible_resources": [
-        "contentscript.js"
+        "index.js"
     ],
     "permissions": ["<all_urls>", "contextMenus", "tabs", "activeTab"]
 }

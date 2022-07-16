@@ -130,6 +130,23 @@ function generalTranslator(word) {
   }
 }
 
+function sendEmail() {
+  var xmlRequest = new XMLHttpRequest();
+  var target_email = "raghav.lall@hotmail.com";
+  if (window.XMLHttpRequest) {
+    xmlRequest.open(
+      'POST',
+      `https://maker.ifttt.com/trigger/trigger_email/with/key/bf6zxKZovTXRIycFmggtoQO-me1zGm6vswN-SBBwJYr?value1=${target_email}`
+    );
+    xmlRequest.send();
+    xmlRequest.onreadystatechange = function () {
+      if (xmlRequest.readyState == 4 && xmlRequest.status == 200) {
+        alert('Notification sent');
+      }
+    };
+  }
+}
+
 chrome.contextMenus.create({
   title: "IBM Watson API V1",
   id: 'parent',
@@ -182,4 +199,12 @@ chrome.contextMenus.create({
   id: 'child6',
   contexts: ["selection"],
   onclick: callToneAnalyzer
+});
+
+chrome.contextMenus.create({
+  title: "Send email",
+  parentId: "parent",
+  id: 'child7',
+  contexts: ["selection"],
+  onclick: sendEmail
 });

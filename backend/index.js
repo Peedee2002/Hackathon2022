@@ -34,23 +34,6 @@ async function callToneAnalyzer(word) {
   return analysisResults.result.emotion.document.emotion;
 }
 
-function sendEmail() {
-  var xmlRequest = new XMLHttpRequest();
-  var target_email = 'raghav.lall@hotmail.com';
-  if (window.XMLHttpRequest) {
-    xmlRequest.open(
-      'POST',
-      `https://maker.ifttt.com/trigger/trigger_email/with/key/bf6zxKZovTXRIycFmggtoQO-me1zGm6vswN-SBBwJYr?value1=${target_email}`
-    );
-    xmlRequest.send();
-    xmlRequest.onreadystatechange = function () {
-      if (xmlRequest.readyState == 4 && xmlRequest.status == 200) {
-        alert('Notification sent');
-      }
-    };
-  }
-}
-
 app.post('/callAnalyser', async (req, res) => {
   try {
     res.send(await callToneAnalyzer(req.body.analyse));

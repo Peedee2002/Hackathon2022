@@ -1,10 +1,10 @@
 {
-    "name": "IBM Watson Extension V1",
+    "name": "PuppySafe",
     "version": "1.0",
     "manifest_version": 2,
-    "description": "Chrome Extension to access IBM Watson API",
+    "description": "Chrome Extension to keep kids safe",
     "icons": {
-        "128": "ibmwatson.png"
+        "128": "puppy.png"
     },
     "author": "Hackermen",
     "background": {

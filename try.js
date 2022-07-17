@@ -30,8 +30,9 @@ function bigFunction (text) {
     });
 }
 
-texts = ['Hey, you are disgusting', 'You are amazing!!']
+texts = ['You are horrible', 'You are amazing']
 
 texts.forEach(text => {
+  console.log(text)
   bigFunction (text)
 });

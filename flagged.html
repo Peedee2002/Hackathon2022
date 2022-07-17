@@ -1,0 +1,78 @@
+<html style="height: 300">
+  <head>
+    <title>Puppy Safe</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <!-- Google font imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body id="body">
+    <header>
+      <i title="settings" class="fa fa-cog"></i>
+    </header>
+    <div id="main-body">
+      <div class="body-content flagged" id="body-content-flagged">
+        <h3 style="font-size: 24px; color: rgb(87, 67, 26)">
+          Flagged messages
+        </h3>
+        <div id="messages">
+          <div class="message-box">
+            <p>This is message 1</p>
+          </div>
+          <div class="message-box">
+            <p>This is message 2</p>
+          </div>
+          <div class="message-box">
+            <p>This is message 3</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div id="icon-box">
+        <a href="flagged.html"
+          ><button class="icon-button flagged">
+            <i
+              title="view flagged messages"
+              class="fa fa-flag"
+              style="font-size: 25px"
+            ></i>
+            <p>FLAGGED</p>
+          </button></a
+        >
+        <a href="popup.html"
+          ><button class="icon-button home">
+            <i title="home" class="fa fa-home" style="font-size: 25px"></i>
+            <p>HOME</p>
+          </button></a
+        >
+        <a href="reports.html"
+          ><button class="icon-button reports">
+            <i
+              title="view reports"
+              class="fa fa-file"
+              style="font-size: 25px"
+            ></i>
+            <p>REPORTS</p>
+          </button></a
+        >
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,5 +1,5 @@
-# UNSW WIT Hackathon 2022 Submission - 4th Place Winner 
-# (/32 teams) - $600 prize
+# UNSW WIT Hackathon 2022 Submission 
+## 4th Place Winner  (/32 teams) - $600 prize
  
 Today more then ever, children are living in a hyrbid world. Cyberbullying, alongside other forms of text based harassment online is a pressing issue our app aims to reduce through an AI monitored communication service. Our product, WatchDog, aims to be "facebook messenger for kids", and seeks to empower parents to know if their child is being harassed or being sent inappropriate messages.
 

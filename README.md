@@ -15,4 +15,4 @@ If this was an actual product, we would have a self trained model, trained on la
 
 This is designed to be used for younger children, and a lot of the apps marketing would be designed to enforce that. While this means the young child would lose privacy, we feel its worth the tradeoff to protect young children from cyberbullying and predators online in an increasingly virtual world.
 
-- Written by Raghav
+

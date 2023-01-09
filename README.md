@@ -1,4 +1,4 @@
-# UNSW WIT Hackathon 2022 Submission 
+# UNSW WIT Hackathon 2022 - "Messenger for Kids"
 ## 4th Place Winner  (/32 teams) - $600 prize
  
 ### Description
